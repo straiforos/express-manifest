@@ -1,6 +1,8 @@
 # [express](http://expressjs.com)-manifest
 
-> Middleware which resolves requests based on generic filenames to the associated file fingerprint outlined in a manifest file.
+> Middleware which resolves requests based on generic filenames to the associated file fingerprint outlined in a manifest file. Now Supporting asset-manifest files.
+
+This repo was forked from https://github.com/zeroEvidence/express-manifest
 
 ```js
 // index.js (example ExpressJS application)
@@ -17,7 +19,8 @@ app.use(manifest({
   prepend: path.join(__dirname, 'public'),
   reqPathFind: /^(\/?)/,
   reqPathReplace: '',
-  debug: true;
+  debug: true,
+  assetManifest: false
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -36,6 +39,36 @@ module.exports = app;
 }
 ```
 
+## Sample asset-manifest.json
+
+```js
+{
+  "files": {
+    "main.css": "/static/css/main.477617b0.chunk.css",
+    "main.js": "/static/js/main.9ee1af3f.chunk.js",
+    "main.js.map": "/static/js/main.9ee1af3f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.7a5163f1.js",
+    "runtime-main.js.map": "/static/js/runtime-main.7a5163f1.js.map",
+    "static/css/2.3046fb12.chunk.css": "/static/css/2.3046fb12.chunk.css",
+    "static/js/2.1fd14617.chunk.js": "/static/js/2.1fd14617.chunk.js",
+    "static/js/2.1fd14617.chunk.js.map": "/static/js/2.1fd14617.chunk.js.map",
+    "static/js/3.39ff45eb.chunk.js": "/static/js/3.39ff45eb.chunk.js",
+    "static/js/3.39ff45eb.chunk.js.map": "/static/js/3.39ff45eb.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.3046fb12.chunk.css.map": "/static/css/2.3046fb12.chunk.css.map",
+    "static/css/main.477617b0.chunk.css.map": "/static/css/main.477617b0.chunk.css.map",
+    "static/js/2.1fd14617.chunk.js.LICENSE.txt": "/static/js/2.1fd14617.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7a5163f1.js",
+    "static/css/2.3046fb12.chunk.css",
+    "static/js/2.1fd14617.chunk.js",
+    "static/css/main.477617b0.chunk.css",
+    "static/js/main.9ee1af3f.chunk.js"
+  ]
+}
+```
+
 ## Sample directory structure
     .
     ├── index.js
@@ -48,13 +81,15 @@ module.exports = app;
     │   └── stylesheets
     │       └── global-692736a41c.css
 
+
 ## Config
 [defaults.json](defaults.json) file defaults to the following configuration values:
 ```js
 {
   "manifest": "./public/rev-manifest.json",
   "prepend": "",
-  "debug": false
+  "debug": false,
+  "assetManifest": false
 }
 ```
 

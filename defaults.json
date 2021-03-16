@@ -1,5 +1,6 @@
 {
   "manifest": "./public/rev-manifest.json",
   "prepend": "",
-  "debug": false
+  "debug": false,
+  "assetManifest": false
 }
